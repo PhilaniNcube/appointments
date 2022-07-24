@@ -4,6 +4,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { motion } from "framer-motion";
 import Error from "next/error";
 import { useRouter } from "next/router";
+import { stringify } from "querystring";
 import { FormEvent } from "react";
 import { QueryClient, useMutation, UseMutationResult } from "react-query";
 import { DoctorType } from "../../types";
@@ -20,14 +21,14 @@ export interface DocParams {
 }
 
 
-const ApplicationModal = ({setOpenModal}) => {
+const ApplicationModal = ({setOpenModal}: {setOpenModal: (arg0:boolean) => void}) => {
 
   const queryClient = new QueryClient();
 
    const router = useRouter()
     const { isLoading, user, error } = useUser();
 
-  const mutation: UseMutationResult<DocParams, Error, DocParams> = useMutation(
+  const mutation = useMutation(
     async ({
       address,
       closing_time,
@@ -37,7 +38,7 @@ const ApplicationModal = ({setOpenModal}) => {
       phone_number,
       specialization,
       website,
-    }) => {
+    }: {address: string, closing_time: string, consultation_fee: number, experience: number, opening_time: string, phone_number: string, specialization: string, website: string}) => {
       const result = await supabaseClient.from("doctors").insert([
         {
           address: address,
@@ -53,13 +54,14 @@ const ApplicationModal = ({setOpenModal}) => {
 
       const { data, error } = await supabaseClient
         .from("profiles")
-        .update({ role: "doctor" }).eq('id', user?.id)
-
-    }, {
+        .update({ role: "doctor" })
+        .eq("id", user?.id);
+    },
+    {
       onSuccess: () => {
         queryClient.invalidateQueries("doctors");
         setOpenModal(false);
-      }
+      },
     }
   );
 
@@ -82,7 +84,7 @@ const ApplicationModal = ({setOpenModal}) => {
 
     ) {
 
-      const res =  mutation.mutateAsync({
+      const res  =  mutation.mutate({
           address: address,
           closing_time: closing_time,
           consultation_fee: +consultation_fee,
