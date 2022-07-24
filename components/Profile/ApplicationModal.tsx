@@ -38,7 +38,7 @@ const ApplicationModal = ({setOpenModal}: {setOpenModal: (arg0:boolean) => void}
       phone_number,
       specialization,
       website,
-    }: {address: string, closing_time: string, consultation_fee: number, experience: number, opening_time: string, phone_number: string, specialization: string, website: string}) => {
+    }: DocParams) => {
       const result = await supabaseClient.from("doctors").insert([
         {
           address: address,
@@ -85,15 +85,15 @@ const ApplicationModal = ({setOpenModal}: {setOpenModal: (arg0:boolean) => void}
     ) {
 
       const res  =  mutation.mutate({
-          address: address,
-          closing_time: closing_time,
+          address: address as string,
+          closing_time: closing_time as string,
           consultation_fee: +consultation_fee,
           experience: +experience,
-          opening_time: opening_time,
-          phone_number: phone_number,
-          specialization: specialization,
-          website: website,
-        } );
+          opening_time: opening_time as string,
+          phone_number: phone_number as string,
+          specialization: specialization as string,
+          website: website as string,
+        }) ;
 
       }
 
