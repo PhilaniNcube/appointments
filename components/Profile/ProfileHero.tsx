@@ -1,3 +1,4 @@
+import { useUser } from "@supabase/auth-helpers-react";
 import { Fragment } from "react";
 import { useQuery } from "react-query";
 import { getProfile } from "../../lib/getProfile";
@@ -7,6 +8,8 @@ import ProfileCard from "./ProfileCard";
 import UpdateProfile from "./UpdateProfile";
 
 const ProfileHero = () => {
+
+
 
   const { data, isLoading, isError }:{data:UserType|undefined, isLoading:boolean, isError:boolean} = useQuery(
     "profile",

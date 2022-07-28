@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { stringify } from "querystring";
 import { FormEvent } from "react";
 import { QueryClient, useMutation, UseMutationResult } from "react-query";
-import { DoctorType } from "../../types";
+
 
 export interface DocParams {
   address: string;
@@ -59,7 +59,7 @@ const ApplicationModal = ({setOpenModal}: {setOpenModal: (arg0:boolean) => void}
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("doctors");
+        queryClient.invalidateQueries("profile");
         setOpenModal(false);
       },
     }

@@ -9,7 +9,7 @@ export interface UserType {
   role: RoleType;
 }
 
-export interface DoctorType {
+export interface IDoctorType {
   id: string;
   created_at: string;
   experience: number;
@@ -20,5 +20,5 @@ export interface DoctorType {
   address: string;
   specialization: string;
   consultation_fee: number;
-  profile_id: UserType;
+  profile_id: string;
 }

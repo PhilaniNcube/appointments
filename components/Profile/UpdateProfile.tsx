@@ -17,14 +17,14 @@ const UpdateProfile = () => {
      useQuery("profile", getProfile);
 
   return (
-    <section className="max-w-7xl mx-auto mt-4 bg-gray-500 rounded-lg py-4 px-3">
+    <section className="max-w-7xl mx-auto mt-4">
       {data?.role === "patient" && (
         <div>
           <button
             onClick={() => setOpenModal(true)}
-            className="bg-blue-600 text-white text-base uppercase px-4 py-2 rounded-lg"
+            className="bg-blue-600 font-bold text-white text-base uppercase px-8 py-2 rounded-lg"
           >
-            Apply To Listed As A Doctor
+            Apply To Be Listed As A Doctor
           </button>
         </div>
       )}
